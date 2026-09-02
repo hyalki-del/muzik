@@ -2,26 +2,78 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kapsamlı Müzik Teorisi Rehberi (2 Oktav Piyano)</title>
 <style>
   body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: #f8fafc; padding: 24px; color: #1e293b; }
   .header { text-align: center; margin-bottom: 24px; }
   .header h1 { color: #0f172a; font-size: 24px; margin: 0 0 8px 0; }
   .header p { color: #64748b; font-size: 14px; margin: 0; }
-  table { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+
+  table { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
   th { background: #0f172a; color: #f8fafc; text-align: left; padding: 14px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
   td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; vertical-align: top; }
   tr:nth-child(even) { background-color: #f8fafc; }
-  .category { font-weight: bold; color: #2563eb; width: 12%; background: #eff6ff !important; border-right: 1px solid #dbeafe; }
-  .term { font-weight: 700; color: #0f172a; width: 18%; }
-  .desc { color: #334155; width: 42%; line-height: 1.5; }
-  .example { font-family: 'Courier New', Courier, monospace; color: #047857; font-weight: 600; width: 28%; background: #ecfdf5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; line-height: 1.4; }
+  .category { font-weight: bold; color: #2563eb; width: 10%; background: #eff6ff !important; border-right: 1px solid #dbeafe; }
+  .term { font-weight: 700; color: #0f172a; width: 15%; }
+  .desc { color: #334155; width: 38%; line-height: 1.5; }
+
+  /* Interactive Sample Box */
+  .sample-box {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #ecfdf5; padding: 8px 12px; border-radius: 6px;
+    border: 1px solid #a7f3d0; cursor: pointer; transition: all 0.2s ease;
+  }
+  .sample-box:hover { background: #d1fae5; border-color: #34d399; transform: translateY(-1px); }
+  .sample-text { font-family: 'Courier New', Courier, monospace; color: #047857; font-weight: 600; line-height: 1.4; font-size: 12px; }
+  .play-btn-badge {
+    background: #10b981; color: white; border-radius: 20px;
+    padding: 3px 8px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+  }
+
+  /* POPUP MODAL STYLES */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center; z-index: 1000;
+  }
+  .modal-card {
+    background: #ffffff; padding: 24px; border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); width: 620px; text-align: center; position: relative;
+  }
+  .modal-title { font-size: 20px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+  .modal-notes { font-size: 14px; color: #059669; font-weight: 600; margin-bottom: 20px; }
+  .close-btn {
+    position: absolute; top: 12px; right: 16px; background: none;
+    border: none; font-size: 20px; color: #64748b; cursor: pointer;
+  }
+  .close-btn:hover { color: #0f172a; }
+
+  /* 2-OCTAVE PIANO KEYBOARD STYLES */
+  .piano-container {
+    position: relative; display: flex; justify-content: center;
+    height: 140px; margin: 0 auto 16px auto; width: 560px; user-select: none;
+  }
+  .key { position: relative; cursor: pointer; border-radius: 0 0 4px 4px; box-sizing: border-box; }
+  .key.white {
+    width: 40px; height: 140px; background: #ffffff;
+    border: 1px solid #cbd5e1; z-index: 1;
+  }
+  .key.white:active, .key.white.active { background: #10b981 !important; border-color: #059669; }
+  .key.black {
+    width: 24px; height: 85px; background: #1e293b;
+    margin-left: -12px; margin-right: -12px; z-index: 2; border-radius: 0 0 3px 3px;
+  }
+  .key.black:active, .key.black.active { background: #059669 !important; }
+  
+  .instruction-text { font-size: 12px; color: #64748b; margin-top: 8px; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>KAPSAMLI MÜZİK TEORİSİ VE AKOR REHBERİ</h1>
-  <p>Akor Yapıları, İşlevler, Gamlar, Modlar ve Duyum Terimleri Özeti</p>
+  <p>Tüm Akorlar, İşlevler, Gamlar ve Modlar (2 Oktav Piyano Klavye Destekli)</p>
 </div>
 
 <table>
@@ -30,7 +82,7 @@
       <th>Kategori</th>
       <th>Terim</th>
       <th>Detaylı Açıklama / Nasıl Oluşur?</th>
-      <th>Somut Örnek (Formül & Sesler)</th>
+      <th>Somut Örnek (Dinlemek için Tıkla)</th>
     </tr>
   </thead>
   <tbody>
@@ -39,47 +91,92 @@
       <td class="category" rowspan="9">Akorlar</td>
       <td class="term">Majör (M)</td>
       <td class="desc">Kök ses + <b>4 yarım perde</b> + <b>3 yarım perde</b>. Parlak ve mutlu tını.</td>
-      <td class="example">C (Do Majör): Do → Mi → Sol</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Do Majör (C)', ['C4', 'E4', 'G4'])">
+          <div class="sample-text">C (Do Majör):<br>Do - Mi - Sol</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Minör (m)</td>
       <td class="desc">Kök ses + <b>3 yarım perde</b> + <b>4 yarım perde</b>. Koyu ve hüzünlü tını.</td>
-      <td class="example">Am (La Minör): La → Do → Mi</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('La Minör (Am)', ['A4', 'C5', 'E5'])">
+          <div class="sample-text">Am (La Minör):<br>La - Do - Mi</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Diminished (dim)</td>
       <td class="desc">Üst üste iki adet <b>3 yarım perde</b> (1 - b3 - b5). Gerilimli geçiş akoru.</td>
-      <td class="example">Bdim (Si Eksilmiş): Si → Re → Fa</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Si Eksilmiş (Bdim)', ['B4', 'D5', 'F5'])">
+          <div class="sample-text">Bdim (Si Eksilmiş):<br>Si - Re - Fa</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Augmented (aug)</td>
       <td class="desc">Üst üste iki adet <b>4 yarım perde</b> (1 - 3 - #5). Havada kalmış tını.</td>
-      <td class="example">Caug (Do Artmış): Do → Mi → G#</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Do Artmış (Caug)', ['C4', 'E4', 'G#4'])">
+          <div class="sample-text">Caug (Do Artmış):<br>Do - Mi - G#</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Add (add9)</td>
       <td class="desc">7'li eklenmeden doğrudan 9. sesin (2. derece oktavı) katılması.</td>
-      <td class="example">Am(add9): La - Do - Mi - Si</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Am(add9)', ['A4', 'C5', 'E5', 'B5'])">
+          <div class="sample-text">Am(add9):<br>La - Do - Mi - Si</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Sus (sus2 / sus4)</td>
       <td class="desc">3'lü ses çıkartılıp yerine 2'li veya 4'lü ses konur. Nötr tını.</td>
-      <td class="example">Asus2: La-Si-Mi<br>Asus4: La-Re-Mi</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Asus2 & Asus4', ['A4', 'B4', 'D5', 'E5'])">
+          <div class="sample-text">Asus2: La-Si-Mi<br>Asus4: La-Re-Mi</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Extended (9/11/13)</td>
       <td class="desc">7'li akorun üzerine 3'lü aralıklar eklenerek zenginleştirilmesi.</td>
-      <td class="example">Am9: La - Do - Mi - Sol - Si</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Am9', ['A4', 'C5', 'E5', 'G5', 'B5'])">
+          <div class="sample-text">Am9:<br>La - Do - Mi - Sol - Si</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Altered (alt / b9)</td>
       <td class="desc">Dominant akorun 5'li veya 9'lu seslerinin pesleştirilip/tizleştirilmesi.</td>
-      <td class="example">E7b9: Mi - G# - Si - Re - Fa</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('E7b9', ['E4', 'G#4', 'B4', 'D5', 'F5'])">
+          <div class="sample-text">E7b9:<br>Mi - G# - Si - Re - Fa</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Diyatonik Akorlar</td>
       <td class="desc">Ana gamın kendi sesleriyle sırayla kurulan 7 akorluk aile. (Maj-min-min-Maj-Maj-min-dim)</td>
-      <td class="example">C Tonunda:<br>C - Dm - Em - F - G - Am - Bdim</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('C Diyatonik Akorlar', ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'])">
+          <div class="sample-text">C Tonunda:<br>C - Dm - Em - F - G - Am - Bdim</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
 
     <!-- İŞLEVLER -->
@@ -87,32 +184,62 @@
       <td class="category" rowspan="6">İşlevler</td>
       <td class="term">Tonik (Kök)</td>
       <td class="desc">Parçanın evidir (i / I). Tüm gerilimler burada çözülür.</td>
-      <td class="example">Am tonunda: Am<br>C tonunda: C</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Tonik (Am)', ['A4', 'C5', 'E5'])">
+          <div class="sample-text">Am tonunda: Am<br>C tonunda: C</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Dominant (Baskın)</td>
       <td class="desc">Dizinin 5. derecesidir (V7). Kulağı şiddetle Tonik akora yönlendirir.</td>
-      <td class="example">Am tonunda: E7<br>C tonunda: G / G7</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Dominant (E7)', ['E4', 'G#4', 'B4', 'D5'])">
+          <div class="sample-text">Am tonunda: E7<br>C tonunda: G / G7</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Subdominant</td>
       <td class="desc">Dizinin 4. derecesidir (iv / IV). Gerilimi başlatan hazırlık akoru.</td>
-      <td class="example">Am tonunda: Dm / Fmaj7<br>C tonunda: F / Dm</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Subdominant (Dm / F)', ['D4', 'F4', 'A4'])">
+          <div class="sample-text">Am tonunda: Dm / Fmaj7<br>C tonunda: F / Dm</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Leading Tone</td>
       <td class="desc">Kök sesin 1 yarım perde altındaki çekim sesi.</td>
-      <td class="example">La için: Sol Diyez (G#)</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Leading Tone (G# -> A)', ['G#4', 'A4'])">
+          <div class="sample-text">La için: Sol Diyez (G#)</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Subtonic</td>
       <td class="desc">Kök sesin 2 yarım perde altındaki doğal 7. derece.</td>
-      <td class="example">La için: Sol (G)</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Subtonic (G -> A)', ['G4', 'A4'])">
+          <div class="sample-text">La için: Doğal Sol (G)</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Mediant / Submediant</td>
       <td class="desc">Tonik ile Dominant ortasındaki 3. ve 6. dereceler. Ton karakterini belirler.</td>
-      <td class="example">A için: Do (C) / Fa (F)</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Mediant & Submediant', ['C4', 'F4'])">
+          <div class="sample-text">A için: Do (C) / Fa (F)</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
 
     <!-- GAMLAR -->
@@ -120,70 +247,135 @@
       <td class="category" rowspan="6">Gamlar</td>
       <td class="term">Harmonik Minör</td>
       <td class="desc">Doğal minörün 7. sesinin tizleştirilmesiyle (G → G#) oluşur.</td>
-      <td class="example">A Harmonik Minör:<br>A - B - C - D - E - F - <b>G#</b></td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('A Harmonik Minör', ['A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G#5', 'A5'])">
+          <div class="sample-text">A Harmonik Minör:<br>A - B - C - D - E - F - G# - A</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Melodik Minör</td>
       <td class="desc">Minör dizinin hem 6. hem 7. sesinin tizleştirilmesiyle oluşur.</td>
-      <td class="example">A Melodik Minör:<br>A - B - C - D - E - <b>F#</b> - <b>G#</b></td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('A Melodik Minör', ['A4', 'B4', 'C5', 'D5', 'E5', 'F#5', 'G#5', 'A5'])">
+          <div class="sample-text">A Melodik Minör:<br>A - B - C - D - E - F# - G# - A</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Diyatonik Gam</td>
       <td class="desc">Harici diyez/bemol almayan doğal 7 sesli sistem.</td>
-      <td class="example">C Majör / A Minör:<br>Do - Re - Mi - Fa - Sol - La - Si</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('C Diyatonik Gam', ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'])">
+          <div class="sample-text">C Majör / A Minör:<br>Do - Re - Mi - Fa - Sol - La - Si</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
-      <td class="term">Kromatik</td>
+      <td class="term">Kromatik Gam</td>
       <td class="desc">12 sesin tamamının yarımşar perdelik adımlarla dizilmesi.</td>
-      <td class="example">Gitar klavyesindeki tüm sıralı perdeler</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Kromatik Dizi', ['C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5'])">
+          <div class="sample-text">Tüm Sıralı Perdeler:<br>C4 - B4 arası tüm perdeler</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Minör Pentatonik</td>
-      <td class="desc">Doğal minör gamdan <b>2. ve 6. seslerin çıkarılmasıyla</b> (1-b3-4-5-b7) elde edilen 5 sesli gam.</td>
-      <td class="example">A Minör Pentatonik:<br>A - C - D - E - G<br>(B ve F çıkarılmıştır)</td>
+      <td class="desc">Doğal minör gamdan <b>2. ve 6. seslerin çıkarılmasıyla</b> (1-b3-4-5-b7) elde edilir.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('A Minör Pentatonik', ['A4', 'C5', 'D5', 'E5', 'G5', 'A5'])">
+          <div class="sample-text">A Minör Pentatonik:<br>A - C - D - E - G - A</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Majör Pentatonik</td>
-      <td class="desc">Majör gamdan <b>4. ve 7. seslerin çıkarılmasıyla</b> (1-2-3-5-6) elde edilen 5 sesli gam.</td>
-      <td class="example">C Majör Pentatonik:<br>C - D - E - G - A<br>(F ve B çıkarılmıştır)</td>
+      <td class="desc">Majör gamdan <b>4. ve 7. seslerin çıkarılmasıyla</b> (1-2-3-5-6) elde edilir.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('C Majör Pentatonik', ['C4', 'D4', 'E4', 'G4', 'A4', 'C5'])">
+          <div class="sample-text">C Majör Pentatonik:<br>C - D - E - G - A - C</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
 
     <!-- MODLAR -->
     <tr>
       <td class="category" rowspan="7">Modlar</td>
       <td class="term">Ionian (Majör)</td>
-      <td class="desc">Standart majör gamdır (1-2-3-4-5-6-7). Parlak ve mutlu tını.</td>
-      <td class="example">C Ionian:<br>C - D - E - F - G - A - B</td>
+      <td class="desc">Standart majör gamdır (1-2-3-4-5-6-7). Parlak ve mutlu.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('C Ionian', ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'])">
+          <div class="sample-text">C Ionian:<br>C - D - E - F - G - A - B - C</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Dorian</td>
       <td class="desc">Minör gamın 6. sesinin doğal (6) kalmış halidir. Cazvari minör.</td>
-      <td class="example">D Dorian:<br>D - E - F - G - A - B - C</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('D Dorian', ['D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5'])">
+          <div class="sample-text">D Dorian:<br>D - E - F - G - A - B - C - D</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Phrygian</td>
       <td class="desc">Minör gamın 2. sesinin bemol (b2) halidir. Flamenko/Oryantal tını.</td>
-      <td class="example">E Phrygian:<br>E - F - G - A - B - C - D</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('E Phrygian', ['E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5'])">
+          <div class="sample-text">E Phrygian:<br>E - F - G - A - B - C - D - E</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Lydian</td>
       <td class="desc">Majör gamın 4. sesinin diyez (#4) halidir. Hayalsi/Uzayvari.</td>
-      <td class="example">F Lydian:<br>F - G - A - B - C - D - E</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('F Lydian', ['F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5'])">
+          <div class="sample-text">F Lydian:<br>F - G - A - B - C - D - E - F</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Mixolydian</td>
       <td class="desc">Majör gamın 7. sesinin bemol (b7) halidir. Blues/Rock tınısı.</td>
-      <td class="example">G Mixolydian:<br>G - A - B - C - D - E - F</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('G Mixolydian', ['G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5'])">
+          <div class="sample-text">G Mixolydian:<br>G - A - B - C - D - E - F - G</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Aeolian (Minör)</td>
       <td class="desc">Standart doğal minör gamdır (1-2-b3-4-5-b6-b7). Hüzünlü tını.</td>
-      <td class="example">A Aeolian:<br>A - B - C - D - E - F - G</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('A Aeolian', ['A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5'])">
+          <div class="sample-text">A Aeolian:<br>A - B - C - D - E - F - G - A</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Locrian</td>
       <td class="desc">Hem 2'lisi hem 5'lisi bemol (b2, b5) olan en gerilimli modtur.</td>
-      <td class="example">B Locrian:<br>B - C - D - E - F - G - A</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('B Locrian', ['B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5'])">
+          <div class="sample-text">B Locrian:<br>B - C - D - E - F - G - A - B</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
 
     <!-- DUYUM -->
@@ -191,25 +383,171 @@
       <td class="category" rowspan="4">Duyum</td>
       <td class="term">Konsonans</td>
       <td class="desc">Çakışmayan, uyumlu, dinlendirici ve kararlı ses birleşimi.</td>
-      <td class="example">Am karar akoru</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Konsonans (Am Karar)', ['A4', 'C5', 'E5'])">
+          <div class="sample-text">Am karar akoru</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Dissonans</td>
       <td class="desc">Çakışan, tırmalayıcı ve çözülmek isteyen gerilimli ses birleşimi.</td>
-      <td class="example">Bdim7 veya G ve G# çakışması</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Dissonans (G ve G# Çakışması)', ['G4', 'G#4'])">
+          <div class="sample-text">G ve G# çakışması</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Kadans</td>
       <td class="desc">Cümle sonundaki akor hareketiyle oluşan duraklama/bitiş etkisi.</td>
-      <td class="example">E7 → Am (Otantik Kadans)</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Otantik Kadans (E7 -> Am)', ['E4', 'G#4', 'B4', 'D5', 'A4', 'C5', 'E5'])">
+          <div class="sample-text">E7 → Am geçişi</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
     <tr>
       <td class="term">Voice Leading</td>
       <td class="desc">Akor geçerken notaların en yakın mesafeden kayarak birleşmesi.</td>
-      <td class="example">E7'deki G# sesinin Am'de A'ya kayması</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Voice Leading (G# -> A)', ['G#4', 'A4'])">
+          <div class="sample-text">G# sesinin A'ya kayması</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<!-- INTERACTIVE 2-OCTAVE PIANO POPUP MODAL -->
+<div class="modal-overlay" id="pianoModal" onclick="closeModalOnOverlay(event)">
+  <div class="modal-card">
+    <button class="close-btn" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modalTitle">Akor İsmi</div>
+    <div class="modal-notes" id="modalNotes">Notalar</div>
+
+    <!-- Interactive Two-Octave Piano (C4 to B5) -->
+    <div class="piano-container">
+      <!-- Octave 4 -->
+      <div class="key white" data-note="C4" onclick="playSingleNote('C4')"></div>
+      <div class="key black" data-note="C#4" onclick="playSingleNote('C#4')"></div>
+      <div class="key white" data-note="D4" onclick="playSingleNote('D4')"></div>
+      <div class="key black" data-note="D#4" onclick="playSingleNote('D#4')"></div>
+      <div class="key white" data-note="E4" onclick="playSingleNote('E4')"></div>
+      <div class="key white" data-note="F4" onclick="playSingleNote('F4')"></div>
+      <div class="key black" data-note="F#4" onclick="playSingleNote('F#4')"></div>
+      <div class="key white" data-note="G4" onclick="playSingleNote('G4')"></div>
+      <div class="key black" data-note="G#4" onclick="playSingleNote('G#4')"></div>
+      <div class="key white" data-note="A4" onclick="playSingleNote('A4')"></div>
+      <div class="key black" data-note="A#4" onclick="playSingleNote('A#4')"></div>
+      <div class="key white" data-note="B4" onclick="playSingleNote('B4')"></div>
+
+      <!-- Octave 5 -->
+      <div class="key white" data-note="C5" onclick="playSingleNote('C5')"></div>
+      <div class="key black" data-note="C#5" onclick="playSingleNote('C#5')"></div>
+      <div class="key white" data-note="D5" onclick="playSingleNote('D5')"></div>
+      <div class="key black" data-note="D#5" onclick="playSingleNote('D#5')"></div>
+      <div class="key white" data-note="E5" onclick="playSingleNote('E5')"></div>
+      <div class="key white" data-note="F5" onclick="playSingleNote('F5')"></div>
+      <div class="key black" data-note="F#5" onclick="playSingleNote('F#5')"></div>
+      <div class="key white" data-note="G5" onclick="playSingleNote('G5')"></div>
+      <div class="key black" data-note="G#5" onclick="playSingleNote('G#5')"></div>
+      <div class="key white" data-note="A5" onclick="playSingleNote('A5')"></div>
+      <div class="key black" data-note="A#5" onclick="playSingleNote('A#5')"></div>
+      <div class="key white" data-note="B5" onclick="playSingleNote('B5')"></div>
+    </div>
+
+    <div class="instruction-text">Tuşlara tıklayarak sesi dinleyebilir veya arpeji tekrar duyabilirsiniz.</div>
+  </div>
+</div>
+
+<script>
+  // Web Audio API Synthesizer Setup
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  // Frequencies for Two Full Octaves (C4 to B5)
+  const noteFrequencies = {
+    // Octave 4
+    'C4': 261.63,  'C#4': 277.18, 'D4': 293.66,  'D#4': 311.13,
+    'E4': 329.63,  'F4': 349.23,  'F#4': 369.99, 'G4': 392.00,
+    'G#4': 415.30, 'A4': 440.00,  'A#4': 466.16, 'B4': 493.88,
+
+    // Octave 5
+    'C5': 523.25,  'C#5': 554.37, 'D5': 587.33,  'D#5': 622.25,
+    'E5': 659.25,  'F5': 698.46,  'F#5': 739.99, 'G5': 783.99,
+    'G#5': 830.61, 'A5': 880.00,  'A#5': 932.33, 'B5': 987.77
+  };
+
+  // Synthesize a Piano Sound
+  function playNoteSound(freq) {
+    if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    osc.type = 'triangle'; // Smooth piano-like tone
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+    // Envelope for natural decay
+    gainNode.gain.setValueAtTime(0.6, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 1.2);
+  }
+
+  // Play a single note when clicking piano key
+  function playSingleNote(note) {
+    if (noteFrequencies[note]) {
+      playNoteSound(noteFrequencies[note]);
+      highlightKey(note, 300);
+    }
+  }
+
+  // Highlight Key visually
+  function highlightKey(note, duration = 400) {
+    const keyElem = document.querySelector(`.key[data-note="${note}"]`);
+    if (keyElem) {
+      keyElem.classList.add('active');
+      setTimeout(() => keyElem.classList.remove('active'), duration);
+    }
+  }
+
+  // Open Modal and Play Arpeggio Sequence
+  function openPianoModal(title, notesArray) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalNotes').innerText = "Notalar: " + notesArray.join(' - ');
+    document.getElementById('pianoModal').style.display = 'flex';
+
+    // Clear previous highlights
+    document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+
+    // Play notes in sequence (arpeggio effect)
+    notesArray.forEach((note, index) => {
+      setTimeout(() => {
+        playSingleNote(note);
+      }, index * 280);
+    });
+  }
+
+  // Modal Close Handlers
+  function closeModal() {
+    document.getElementById('pianoModal').style.display = 'none';
+  }
+
+  function closeModalOnOverlay(e) {
+    if (e.target.id === 'pianoModal') {
+      closeModal();
+    }
+  }
+</script>
 
 </body>
 </html>
