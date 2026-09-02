@@ -547,7 +547,17 @@
 
 <script>
   // Web Audio API Synthesizer Setup
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  let audioCtx;
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
 
   // Frequencies for Two Full Octaves (C4 to B5)
   const noteFrequencies = {
@@ -564,23 +574,23 @@
 
   // Synthesize a Piano Sound
   function playNoteSound(freq) {
-    if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+    const ctx = getAudioContext();
 
-    const osc = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
+    const osc = ctx.createOscillator();
+    const gainNode = ctx.createGain();
 
     osc.type = 'triangle'; // Smooth piano-like tone
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
 
     // Envelope for natural decay
-    gainNode.gain.setValueAtTime(0.6, audioCtx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+    gainNode.gain.setValueAtTime(0.6, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
 
     osc.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+    gainNode.connect(ctx.destination);
 
     osc.start();
-    osc.stop(audioCtx.currentTime + 1.2);
+    osc.stop(ctx.currentTime + 1.2);
   }
 
   // Play a single note when clicking piano key
@@ -602,6 +612,7 @@
 
   // Open Modal and Play Arpeggio Sequence
   function openPianoModal(title, notesArray) {
+    getAudioContext(); // Ensure AudioContext is active
     document.getElementById('modalTitle').innerText = title;
     document.getElementById('modalNotes').innerText = "Notalar: " + notesArray.join(' - ');
     document.getElementById('pianoModal').style.display = 'flex';
@@ -627,6 +638,11 @@
       closeModal();
     }
   }
+
+  // Global click handler to unlock audio on first interaction
+  document.addEventListener('click', () => {
+    getAudioContext();
+  }, { once: true });
 </script>
 
 </body>
