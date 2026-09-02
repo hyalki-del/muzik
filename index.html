@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: #f8fafc; padding: 24px; color: #1e293b; }
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { color: #0f172a; font-size: 24px; margin: 0 0 8px 0; }
+  .header p { color: #64748b; font-size: 14px; margin: 0; }
+  table { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+  th { background: #0f172a; color: #f8fafc; text-align: left; padding: 14px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; vertical-align: top; }
+  tr:nth-child(even) { background-color: #f8fafc; }
+  .category { font-weight: bold; color: #2563eb; width: 12%; background: #eff6ff !important; border-right: 1px solid #dbeafe; }
+  .term { font-weight: 700; color: #0f172a; width: 18%; }
+  .desc { color: #334155; width: 42%; line-height: 1.5; }
+  .example { font-family: 'Courier New', Courier, monospace; color: #047857; font-weight: 600; width: 28%; background: #ecfdf5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; line-height: 1.4; }
+  .tag { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-top: 4px; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>KAPSAMLI MÜZİK TEORİSİ VE AKOR REHBERİ</h1>
+  <p>Akor Yapıları, İşlevler, Gamlar, Modlar ve Duyum Terimleri Özeti</p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kategori</th>
+      <th>Terim</th>
+      <th>Detaylı Açıklama / Nasıl Oluşur?</th>
+      <th>Somut Örnek (Formül & Sesler)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- AKORLAR -->
+    <tr>
+      <td class="category" rowspan="9">Akorlar</td>
+      <td class="term">Majör (M)</td>
+      <td class="desc">Kök ses + <b>4 yarım perde</b> + <b>3 yarım perde</b>. Parlak ve mutlu tını.</td>
+      <td class="example">C (Do Majör): Do → Mi → Sol</td>
+    </tr>
+    <tr>
+      <td class="term">Minör (m)</td>
+      <td class="desc">Kök ses + <b>3 yarım perde</b> + <b>4 yarım perde</b>. Koyu ve hüzünlü tını.</td>
+      <td class="example">Am (La Minör): La → Do → Mi</td>
+    </tr>
+    <tr>
+      <td class="term">Diminished (dim)</td>
+      <td class="desc">Üst üste iki adet <b>3 yarım perde</b> (1 - b3 - b5). Gerilimli geçiş akoru.</td>
+      <td class="example">Bdim (Si Eksilmiş): Si → Re → Fa</td>
+    </tr>
+    <tr>
+      <td class="term">Augmented (aug)</td>
+      <td class="desc">Üst üste iki adet <b>4 yarım perde</b> (1 - 3 - #5). Havada kalmış tını.</td>
+      <td class="example">Caug (Do Artmış): Do → Mi → G#</td>
+    </tr>
+    <tr>
+      <td class="term">Add (add9)</td>
+      <td class="desc">7'li eklenmeden doğrudan 9. sesin (2. derece oktavı) katılması.</td>
+      <td class="example">Am(add9): La - Do - Mi - Si</td>
+    </tr>
+    <tr>
+      <td class="term">Sus (sus2 / sus4)</td>
+      <td class="desc">3'lü ses çıkartılıp yerine 2'li veya 4'lü ses konur. Nötr tını.</td>
+      <td class="example">Asus2: La-Si-Mi<br>Asus4: La-Re-Mi</td>
+    </tr>
+    <tr>
+      <td class="term">Extended (9/11/13)</td>
+      <td class="desc">7'li akorun üzerine 3'lü aralıklar eklenerek zenginleştirilmesi.</td>
+      <td class="example">Am9: La - Do - Mi - Sol - Si</td>
+    </tr>
+    <tr>
+      <td class="term">Altered (alt / b9)</td>
+      <td class="desc">Dominant akorun 5'li veya 9'lu seslerinin pesleştirilip/tizleştirilmesi.</td>
+      <td class="example">E7b9: Mi - G# - Si - Re - Fa</td>
+    </tr>
+    <tr>
+      <td class="term">Diyatonik Akorlar</td>
+      <td class="desc">Ana gamın kendi sesleriyle sırayla kurulan 7 akorluk aile. (Maj-min-min-Maj-Maj-min-dim)</td>
+      <td class="example">C Tonunda:<br>C - Dm - Em - F - G - Am - Bdim</td>
+    </tr>
+
+    <!-- İŞLEVLER -->
+    <tr>
+      <td class="category" rowspan="6">İşlevler</td>
+      <td class="term">Tonik (Kök)</td>
+      <td class="desc">Parçanın evidir (i / I). Tüm gerilimler burada çözülür.</td>
+      <td class="example">Am tonunda: Am<br>C tonunda: C</td>
+    </tr>
+    <tr>
+      <td class="term">Dominant (Baskın)</td>
+      <td class="desc">Dizinin 5. derecesidir (V7). Kulağı şiddetle Tonik akora yönlendirir.</td>
+      <td class="example">Am tonunda: E7<br>C tonunda: G / G7</td>
+    </tr>
+    <tr>
+      <td class="term">Subdominant</td>
+      <td class="desc">Dizinin 4. derecesidir (iv / IV). Gerilimi başlatan hazırlık akoru.</td>
+      <td class="example">Am tonunda: Dm / Fmaj7<br>C tonunda: F / Dm</td>
+    </tr>
+    <tr>
+      <td class="term">Leading Tone</td>
+      <td class="desc">Kök sesin 1 yarım perde altındaki çekim sesi.</td>
+      <td class="example">La için: Sol Diyez (G#)</td>
+    </tr>
+    <tr>
+      <td class="term">Subtonic</td>
+      <td class="desc">Kök sesin 2 yarım perde altındaki doğal 7. derece.</td>
+      <td class="example">La için: Sol (G)</td>
+    </tr>
+    <tr>
+      <td class="term">Mediant / Submediant</td>
+      <td class="desc">Tonik ile Dominant ortasındaki 3. ve 6. dereceler. Ton karakterini belirler.</td>
+      <td class="example">A için: Do (C) / Fa (F)</td>
+    </tr>
+
+    <!-- GAMLAR -->
+    <tr>
+      <td class="category" rowspan="5">Gamlar</td>
+      <td class="term">Harmonik Minör</td>
+      <td class="desc">Doğal minörün 7. sesinin tizleştirilmesiyle (G → G#) oluşur.</td>
+      <td class="example">A Harmonik Minör:<br>A - B - C - D - E - F - <b>G#</b></td>
+    </tr>
+    <tr>
+      <td class="term">Melodik Minör</td>
+      <td class="desc">Minör dizinin hem 6. hem 7. sesinin tizleştirilmesiyle oluşur.</td>
+      <td class="example">A Melodik Minör:<br>A - B - C - D - E - <b>F#</b> - <b>G#</b></td>
+    </tr>
+    <tr>
+      <td class="term">Diyatonik Gam</td>
+      <td class="desc">Harici diyez/bemol almayan doğal 7 sesli sistem.</td>
+      <td class="example">C Majör / A Minör:<br>Do - Re - Mi - Fa - Sol - La - Si</td>
+    </tr>
+    <tr>
+      <td class="term">Kromatik</td>
+      <td class="desc">12 sesin tamamının yarımşar perdelik adımlarla dizilmesi.</td>
+      <td class="example">Gitar klavyesindeki tüm sıralı perdeler</td>
+    </tr>
+    <tr>
+      <td class="term">Pentatonik</td>
+      <td class="desc">Gerilimli 4. ve 7. seslerin çıkarılmasıyla oluşan 5 sesli pratik gam.</td>
+      <td class="example">A Minör Pentatonik:<br>A - C - D - E - G</td>
+    </tr>
+
+    <!-- MODLAR -->
+    <tr>
+      <td class="category" rowspan="7">Modlar</td>
+      <td class="term">Ionian (Majör)</td>
+      <td class="desc">Standart majör gamdır (1-2-3-4-5-6-7). Parlak ve mutlu tını.</td>
+      <td class="example">C Ionian:<br>C - D - E - F - G - A - B</td>
+    </tr>
+    <tr>
+      <td class="term">Dorian</td>
+      <td class="desc">Minör gamın 6. sesinin doğal (6) kalmış halidir. Cazvari minör.</td>
+      <td class="example">D Dorian:<br>D - E - F - G - A - B - C</td>
+    </tr>
+    <tr>
+      <td class="term">Phrygian</td>
+      <td class="desc">Minör gamın 2. sesinin bemol (b2) halidir. Flamenko/Oryantal tını.</td>
+      <td class="example">E Phrygian:<br>E - F - G - A - B - C - D</td>
+    </tr>
+    <tr>
+      <td class="term">Lydian</td>
+      <td class="desc">Majör gamın 4. sesinin diyez (#4) halidir. Hayalsi/Uzayvari.</td>
+      <td class="example">F Lydian:<br>F - G - A - B - C - D - E</td>
+    </tr>
+    <tr>
+      <td class="term">Mixolydian</td>
+      <td class="desc">Majör gamın 7. sesinin bemol (b7) halidir. Blues/Rock tınısı.</td>
+      <td class="example">G Mixolydian:<br>G - A - B - C - D - E - F</td>
+    </tr>
+    <tr>
+      <td class="term">Aeolian (Minör)</td>
+      <td class="desc">Standart doğal minör gamdır (1-2-b3-4-5-b6-b7). Hüzünlü tını.</td>
+      <td class="example">A Aeolian:<br>A - B - C - D - E - F - G</td>
+    </tr>
+    <tr>
+      <td class="term">Locrian</td>
+      <td class="desc">Hem 2'lisi hem 5'lisi bemol (b2, b5) olan en gerilimli modtur.</td>
+      <td class="example">B Locrian:<br>B - C - D - E - F - G - A</td>
+    </tr>
+
+    <!-- DUYUM -->
+    <tr>
+      <td class="category" rowspan="4">Duyum</td>
+      <td class="term">Konsonans</td>
+      <td class="desc">Çakışmayan, uyumlu, dinlendirici ve kararlı ses birleşimi.</td>
+      <td class="example">Am karar akoru</td>
+    </tr>
+    <tr>
+      <td class="term">Dissonans</td>
+      <td class="desc">Çakışan, tırmalayıcı ve çözülmek isteyen gerilimli ses birleşimi.</td>
+      <td class="example">Bdim7 veya G ve G# çakışması</td>
+    </tr>
+    <tr>
+      <td class="term">Kadans</td>
+      <td class="desc">Cümle sonundaki akor hareketiyle oluşan duraklama/bitiş etkisi.</td>
+      <td class="example">E7 → Am (Otantik Kadans)</td>
+    </tr>
+    <tr>
+      <td class="term">Voice Leading</td>
+      <td class="desc">Akor geçerken notaların en yakın mesafeden kayarak birleşmesi.</td>
+      <td class="example">E7'deki G# sesinin Am'de A'ya kayması</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
