@@ -545,99 +545,120 @@
   </div>
 </div>
 
-<script>
-  // Web Audio API Synthesizer Setup
-  let audioCtx;
+// Web Audio API Synthesizer Setup
+let audioCtx = null;
 
-  function getAudioContext() {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+// Pure function to initialize and/or resume AudioContext on user action
+function ensureAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) {
+      alert('Web Audio API is not supported in this browser.');
+      return null;
     }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    return audioCtx;
+    audioCtx = new AudioContextClass();
   }
+  
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  
+  return audioCtx;
+}
 
-  // Frequencies for Two Full Octaves (C4 to B5)
-  const noteFrequencies = {
-    // Octave 4
-    'C4': 261.63,  'C#4': 277.18, 'D4': 293.66,  'D#4': 311.13,
-    'E4': 329.63,  'F4': 349.23,  'F#4': 369.99, 'G4': 392.00,
-    'G#4': 415.30, 'A4': 440.00,  'A#4': 466.16, 'B4': 493.88,
+// Frequency Map (C4 to B5)
+const noteFrequencies = {
+  'C4': 261.63,  'C#4': 277.18, 'D4': 293.66,  'D#4': 311.13,
+  'E4': 329.63,  'F4': 349.23,  'F#4': 369.99, 'G4': 392.00,
+  'G#4': 415.30, 'A4': 440.00,  'A#4': 466.16, 'B4': 493.88,
+  'C5': 523.25,  'C#5': 554.37, 'D5': 587.33,  'D#5': 622.25,
+  'E5': 659.25,  'F5': 698.46,  'F#5': 739.99, 'G5': 783.99,
+  'G#5': 830.61, 'A5': 880.00,  'A#5': 932.33, 'B5': 987.77
+};
 
-    // Octave 5
-    'C5': 523.25,  'C#5': 554.37, 'D5': 587.33,  'D#5': 622.25,
-    'E5': 659.25,  'F5': 698.46,  'F#5': 739.99, 'G5': 783.99,
-    'G#5': 830.61, 'A5': 880.00,  'A#5': 932.33, 'B5': 987.77
+// Synthesize Note Sound
+function playNoteSound(freq) {
+  const ctx = ensureAudioContext();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gainNode = ctx.createGain();
+
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(freq, now);
+
+  // Envelope decay
+  gainNode.gain.setValueAtTime(0.5, now);
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+
+  osc.connect(gainNode);
+  gainNode.connect(ctx.destination);
+
+  osc.start(now);
+  osc.stop(now + 1.2);
+
+  // Clean up memory when note ends
+  osc.onended = () => {
+    osc.disconnect();
+    gainNode.disconnect();
   };
+}
 
-  // Synthesize a Piano Sound
-  function playNoteSound(freq) {
-    const ctx = getAudioContext();
-
-    const osc = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-
-    osc.type = 'triangle'; // Smooth piano-like tone
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-    // Envelope for natural decay
-    gainNode.gain.setValueAtTime(0.6, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-
-    osc.connect(gainNode);
-    gainNode.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + 1.2);
+// Interactive Trigger Functions
+function playSingleNote(note) {
+  if (noteFrequencies[note]) {
+    playNoteSound(noteFrequencies[note]);
+    highlightKey(note, 300);
   }
+}
 
-  // Play a single note when clicking piano key
-  function playSingleNote(note) {
-    if (noteFrequencies[note]) {
-      playNoteSound(noteFrequencies[note]);
-      highlightKey(note, 300);
-    }
+function highlightKey(note, duration = 400) {
+  const keyElem = document.querySelector(`.key[data-note="${note}"]`);
+  if (keyElem) {
+    keyElem.classList.add('active');
+    setTimeout(() => keyElem.classList.remove('active'), duration);
   }
+}
 
-  // Highlight Key visually
-  function highlightKey(note, duration = 400) {
-    const keyElem = document.querySelector(`.key[data-note="${note}"]`);
-    if (keyElem) {
-      keyElem.classList.add('active');
-      setTimeout(() => keyElem.classList.remove('active'), duration);
-    }
+function openPianoModal(title, notesArray) {
+  // Resume context directly inside click handler scope
+  ensureAudioContext();
+
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalNotes').innerText = "Notalar: " + notesArray.join(' - ');
+  document.getElementById('pianoModal').style.display = 'flex';
+
+  document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+
+  notesArray.forEach((note, index) => {
+    setTimeout(() => {
+      playSingleNote(note);
+    }, index * 280);
+  });
+}
+
+function closeModal() {
+  document.getElementById('pianoModal').style.display = 'none';
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target.id === 'pianoModal') {
+    closeModal();
   }
+}
 
-  // Open Modal and Play Arpeggio Sequence
-  function openPianoModal(title, notesArray) {
-    getAudioContext(); // Ensure AudioContext is active
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalNotes').innerText = "Notalar: " + notesArray.join(' - ');
-    document.getElementById('pianoModal').style.display = 'flex';
+// Global unlock listener for any initial user interaction
+const unlockAudio = () => {
+  ensureAudioContext();
+  document.removeEventListener('click', unlockAudio);
+  document.removeEventListener('keydown', unlockAudio);
+  document.removeEventListener('touchstart', unlockAudio);
+};
 
-    // Clear previous highlights
-    document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
-
-    // Play notes in sequence (arpeggio effect)
-    notesArray.forEach((note, index) => {
-      setTimeout(() => {
-        playSingleNote(note);
-      }, index * 280);
-    });
-  }
-
-  // Modal Close Handlers
-  function closeModal() {
-    document.getElementById('pianoModal').style.display = 'none';
-  }
-
-  function closeModalOnOverlay(e) {
-    if (e.target.id === 'pianoModal') {
-      closeModal();
-    }
-  }
+document.addEventListener('click', unlockAudio);
+document.addEventListener('keydown', unlockAudio);
+document.addEventListener('touchstart', unlockAudio);
 
   // Global click handler to unlock audio on first interaction
   document.addEventListener('click', () => {
