@@ -73,7 +73,7 @@
 
 <div class="header">
   <h1>EKSİKSİZ MÜZİK TEORİSİ VE AKOR REHBERİ</h1>
-  <p>Basitten Karmaşığa Akor Dizilimi, İşlevler, Gamlar ve Modlar (2 Oktav Piyano Destekli)</p>
+  <p>Basitten Karmaşığa Akor Dizilimi, İşlevler, Gamlar ve Modlar (2 Oktav Akustik Sentez Piyano Destekli)</p>
 </div>
 
 <table>
@@ -504,9 +504,9 @@
 </table>
 
 <!-- INTERACTIVE 2-OCTAVE PIANO POPUP MODAL -->
-<div class="modal-overlay" id="pianoModal" onclick="closeModalOnOverlay(event)">
+<div class="modal-overlay" id="pianoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeModalOnOverlay(event)">
   <div class="modal-card">
-    <button class="close-btn" onclick="closeModal()">✕</button>
+    <button class="close-btn" onclick="closeModal()" aria-label="Kapat">✕</button>
     <div class="modal-title" id="modalTitle">Akor İsmi</div>
     <div class="modal-notes" id="modalNotes">Notalar</div>
 
@@ -570,34 +570,90 @@
     'G#5': 830.61, 'A5': 880.00,  'A#5': 932.33, 'B5': 987.77
   };
 
-  function playNoteSound(freq) {
+  /**
+   * ACOUSTIC PIANO SYNTHESIZER ENGINE
+   * Combines percussive hammer strike transients, inharmonic detuned string partials,
+   * dual-phase exponential decay, and dynamic velocity filtering.
+   */
+  function playSynthesizedPianoNote(freq, velocity = 0.75, duration = 2.5) {
     const ctx = initAudioContext();
     if (!ctx) return;
+    const now = ctx.currentTime;
 
-    const osc = ctx.createOscillator();
-    const gainNode = ctx.createGain();
+    // 1. Master Output Gain Stage
+    const masterGain = ctx.createGain();
+    
+    // Dual-Phase Envelope (Fast initial attack, long decay)
+    masterGain.gain.setValueAtTime(0.0001, now);
+    masterGain.gain.linearRampToValueAtTime(velocity, now + 0.008);
+    masterGain.gain.exponentialRampToValueAtTime(velocity * 0.35, now + 0.15);
+    masterGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    // 2. Hammer Transient Noise Burst
+    const noiseLen = 0.02; 
+    const bufferSize = ctx.sampleRate * noiseLen;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+    }
+    
+    const hammerSource = ctx.createBufferSource();
+    hammerSource.buffer = noiseBuffer;
+    
+    const hammerFilter = ctx.createBiquadFilter();
+    hammerFilter.type = 'bandpass';
+    hammerFilter.frequency.setValueAtTime(freq * 1.5, now);
+    hammerFilter.Q.setValueAtTime(1.2, now);
+    
+    const hammerGain = ctx.createGain();
+    hammerGain.gain.setValueAtTime(velocity * 0.3, now);
 
-    gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
+    hammerSource.connect(hammerFilter);
+    hammerFilter.connect(hammerGain);
+    hammerGain.connect(masterGain);
+    hammerSource.start(now);
 
-    osc.connect(gainNode);
-    gainNode.connect(ctx.destination);
+    // 3. Inharmonic Piano String Partials
+    const stringPartials = [
+      { ratio: 1.000, gain: 1.00, type: 'triangle' }, // Fundamental
+      { ratio: 2.003, gain: 0.45, type: 'sine' },     // Slight inharmonicity
+      { ratio: 3.010, gain: 0.20, type: 'sine' },     // 3rd partial
+      { ratio: 4.025, gain: 0.08, type: 'sine' }      // 4th partial
+    ];
 
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 1.2);
+    stringPartials.forEach(partial => {
+      const osc = ctx.createOscillator();
+      const partialGain = ctx.createGain();
 
-    osc.onended = () => {
-      osc.disconnect();
-      gainNode.disconnect();
-    };
+      osc.type = partial.type;
+      osc.frequency.setValueAtTime(freq * partial.ratio, now);
+
+      const partialDecay = duration / (partial.ratio * 0.65);
+      partialGain.gain.setValueAtTime(partial.gain, now);
+      partialGain.gain.exponentialRampToValueAtTime(0.0001, now + partialDecay);
+
+      osc.connect(partialGain);
+      partialGain.connect(masterGain);
+
+      osc.start(now);
+      osc.stop(now + Math.min(duration, partialDecay));
+    });
+
+    // 4. Dynamic Damping Filter
+    const damperFilter = ctx.createBiquadFilter();
+    damperFilter.type = 'lowpass';
+    const cutoffFreq = Math.min(18000, freq * 4 + velocity * 3500);
+    damperFilter.frequency.setValueAtTime(cutoffFreq, now);
+    damperFilter.frequency.exponentialRampToValueAtTime(freq * 1.2, now + duration);
+
+    masterGain.connect(damperFilter);
+    damperFilter.connect(ctx.destination);
   }
 
   function playSingleNote(note) {
     if (noteFrequencies[note]) {
-      playNoteSound(noteFrequencies[note]);
+      playSynthesizedPianoNote(noteFrequencies[note]);
       highlightKey(note, 300);
     }
   }
@@ -635,6 +691,12 @@
       closeModal();
     }
   }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
 
   window.addEventListener('click', () => { initAudioContext(); }, { once: true });
 </script>
