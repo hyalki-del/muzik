@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kapsamlı Müzik Teorisi Rehberi (2 Oktav Piyano)</title>
+<title>Eksiksiz Müzik Teorisi Rehberi (2 Oktav Piyano)</title>
 <style>
   body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: #f8fafc; padding: 24px; color: #1e293b; }
   .header { text-align: center; margin-bottom: 24px; }
@@ -72,8 +72,8 @@
 <body>
 
 <div class="header">
-  <h1>KAPSAMLI MÜZİK TEORİSİ VE AKOR REHBERİ</h1>
-  <p>Tüm Akorlar (7li, Maj7 ve Min7 dahil), İşlevler, Gamlar ve Modlar (2 Oktav Piyano Destekli)</p>
+  <h1>EKSİKSİZ MÜZİK TEORİSİ VE AKOR REHBERİ</h1>
+  <p>Tüm Akorlar, Gelişmiş Armoni Terimleri, Gamlar ve Modlar (2 Oktav Piyano Destekli)</p>
 </div>
 
 <table>
@@ -88,7 +88,7 @@
   <tbody>
     <!-- AKORLAR -->
     <tr>
-      <td class="category" rowspan="12">Akorlar</td>
+      <td class="category" rowspan="13">Akorlar</td>
       <td class="term">Majör (M)</td>
       <td class="desc">Kök ses + <b>4 yarım perde</b> + <b>3 yarım perde</b>. Parlak ve mutlu tını.</td>
       <td>
@@ -120,10 +120,20 @@
     </tr>
     <tr>
       <td class="term">Minör 7 (min7 / m7)</td>
-      <td class="desc">Minör akorun üzerine <b>bemol 7. sesin (10 yarım perde)</b> eklenmesi (1 - b3 - 5 - b7). Yumuşak, cazvari ve buğulu bir tını.</td>
+      <td class="desc">Minör akorun üzerine <b>bemol 7. sesin (10 yarım perde)</b> eklenmesi (1 - b3 - 5 - b7). Yumuşak ve cazvari minör.</td>
       <td>
         <div class="sample-box" onclick="openPianoModal('La Minör 7 (Am7)', ['A4', 'C5', 'E5', 'G5'])">
           <div class="sample-text">Am7:<br>La - Do - Mi - Sol</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="term">Half-Diminished (m7b5)</td>
+      <td class="desc">Yarı eksilmiş akor (1 - b3 - b5 - b7). Minör tonların 2. derece akorudur, cazda çok kullanılır.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Si Yarı Eksilmiş (Bm7b5)', ['B4', 'D5', 'F5', 'A5'])">
+          <div class="sample-text">Bm7b5:<br>Si - Re - Fa - La</div>
           <div class="play-btn-badge">▶ Çal</div>
         </div>
       </td>
@@ -139,11 +149,11 @@
       </td>
     </tr>
     <tr>
-      <td class="term">Diminished (dim)</td>
+      <td class="term">Diminished (dim / dim7)</td>
       <td class="desc">Üst üste iki adet <b>3 yarım perde</b> (1 - b3 - b5). Gerilimli geçiş akoru.</td>
       <td>
         <div class="sample-box" onclick="openPianoModal('Si Eksilmiş (Bdim)', ['B4', 'D5', 'F5'])">
-          <div class="sample-text">Bdim (Si Eksilmiş):<br>Si - Re - Fa</div>
+          <div class="sample-text">Bdim:<br>Si - Re - Fa</div>
           <div class="play-btn-badge">▶ Çal</div>
         </div>
       </td>
@@ -153,14 +163,14 @@
       <td class="desc">Üst üste iki adet <b>4 yarım perde</b> (1 - 3 - #5). Havada kalmış tını.</td>
       <td>
         <div class="sample-box" onclick="openPianoModal('Do Artmış (Caug)', ['C4', 'E4', 'G#4'])">
-          <div class="sample-text">Caug (Do Artmış):<br>Do - Mi - G#</div>
+          <div class="sample-text">Caug:<br>Do - Mi - G#</div>
           <div class="play-btn-badge">▶ Çal</div>
         </div>
       </td>
     </tr>
     <tr>
       <td class="term">Add (add9)</td>
-      <td class="desc">7'li eklenmeden doğrudan 9. sesin (2. derece oktavı) katılması.</td>
+      <td class="desc">7'li eklenmeden doğrudan 9. sesin katılması.</td>
       <td>
         <div class="sample-box" onclick="openPianoModal('Am(add9)', ['A4', 'C5', 'E5', 'B5'])">
           <div class="sample-text">Am(add9):<br>La - Do - Mi - Si</div>
@@ -200,7 +210,7 @@
     </tr>
     <tr>
       <td class="term">Diyatonik Akorlar</td>
-      <td class="desc">Ana gamın kendi sesleriyle sırayla kurulan 7 akorluk aile. (Maj-min-min-Maj-Maj-min-dim)</td>
+      <td class="desc">Ana gamın kendi sesleriyle sırayla kurulan 7 akorluk aile.</td>
       <td>
         <div class="sample-box" onclick="openPianoModal('C Diyatonik Akorlar', ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'])">
           <div class="sample-text">C Tonunda:<br>C - Dm - Em - F - G - Am - Bdim</div>
@@ -209,9 +219,9 @@
       </td>
     </tr>
 
-    <!-- İŞLEVLER -->
+    <!-- İŞLEVLER VE TEKNİKLER -->
     <tr>
-      <td class="category" rowspan="6">İşlevler</td>
+      <td class="category" rowspan="8">İşlevler & Yöntemler</td>
       <td class="term">Tonik (Kök)</td>
       <td class="desc">Parçanın evidir (i / I). Tüm gerilimler burada çözülür.</td>
       <td>
@@ -237,6 +247,26 @@
       <td>
         <div class="sample-box" onclick="openPianoModal('Subdominant (Dm / F)', ['D4', 'F4', 'A4'])">
           <div class="sample-text">Am tonunda: Dm / Fmaj7<br>C tonunda: F / Dm</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="term">Secondary Dominant</td>
+      <td class="desc">İkincil Baskın Akor. Ton dışındaki bir akora geçmeden önce onun 5. derece dominantını çalma tekniği.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Secondary Dominant (A7 -> Dm)', ['A4', 'C#5', 'E5', 'G5', 'D4', 'F4', 'A4'])">
+          <div class="sample-text">Am'de Dm'ye giderken:<br>A7 → Dm geçişi</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="term">Tritone Substitution</td>
+      <td class="desc">Triton Değişimi. V7 akoru yerine 3 tam perde uzaktaki dominant akoru kullanma (E7 yerine Bb7).</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Tritone Sub (Bb7 -> Am)', ['A#4', 'D5', 'F5', 'G#5', 'A4', 'C5', 'E5'])">
+          <div class="sample-text">E7 yerine Bb7 kullanımı:<br>Bb7 → Am geçişi</div>
           <div class="play-btn-badge">▶ Çal</div>
         </div>
       </td>
@@ -274,7 +304,7 @@
 
     <!-- GAMLAR -->
     <tr>
-      <td class="category" rowspan="6">Gamlar</td>
+      <td class="category" rowspan="7">Gamlar</td>
       <td class="term">Harmonik Minör</td>
       <td class="desc">Doğal minörün 7. sesinin tizleştirilmesiyle (G → G#) oluşur.</td>
       <td>
@@ -290,6 +320,16 @@
       <td>
         <div class="sample-box" onclick="openPianoModal('A Melodik Minör', ['A4', 'B4', 'C5', 'D5', 'E5', 'F#5', 'G#5', 'A5'])">
           <div class="sample-text">A Melodik Minör:<br>A - B - C - D - E - F# - G# - A</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="term">Blues Gamı</td>
+      <td class="desc">Minör pentatonik gama <b>b5 (blue note)</b> eklenerek oluşturulan 6 sesli charakteristik gam.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('A Blues Gamı', ['A4', 'C5', 'D5', 'D#5', 'E5', 'G5', 'A5'])">
+          <div class="sample-text">A Blues Gamı:<br>A - C - D - D# - E - G - A</div>
           <div class="play-btn-badge">▶ Çal</div>
         </div>
       </td>
@@ -408,9 +448,19 @@
       </td>
     </tr>
 
-    <!-- DUYUM -->
+    <!-- DUYUM VE ARALIKLAR -->
     <tr>
-      <td class="category" rowspan="4">Duyum</td>
+      <td class="category" rowspan="5">Duyum & Aralıklar</td>
+      <td class="term">Triton (b5 / #4)</td>
+      <td class="desc">Tam 3 tam perde uzaklıktaki en gerilimli aralıktır. Çözülme arzusunun temel sebebidir.</td>
+      <td>
+        <div class="sample-box" onclick="openPianoModal('Triton Aralığı (C - F#)', ['C4', 'F#4'])">
+          <div class="sample-text">Triton Aralığı:<br>Do - Fa Diyez (C - F#)</div>
+          <div class="play-btn-badge">▶ Çal</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
       <td class="term">Konsonans</td>
       <td class="desc">Çakışmayan, uyumlu, dinlendirici ve kararlı ses birleşimi.</td>
       <td>
