@@ -13,21 +13,46 @@
   table { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
   th { background: #0f172a; color: #f8fafc; text-align: left; padding: 14px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
   td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; vertical-align: top; }
-  tr:nth-child(even) { background-color: #f8fafc; }
-  .category { font-weight: bold; color: #2563eb; width: 10%; background: #eff6ff !important; border-right: 1px solid #dbeafe; }
   .term { font-weight: 700; color: #0f172a; width: 15%; }
   .desc { color: #334155; width: 38%; line-height: 1.5; }
+
+  /* CATEGORY COLOR SYSTEM (Dimmed Palette) */
+  /* 1. Akorlar - Dimmed Blue */
+  tr.cat-akorlar { background-color: #f0f7ff; }
+  tr.cat-akorlar:hover { background-color: #e0f0fe; }
+  td.category-akorlar { font-weight: bold; color: #1d4ed8; width: 10%; background-color: #dbeafe !important; border-right: 1px solid #bfdbfe; }
+
+  /* 2. İşlevler & Yöntemler - Dimmed Purple */
+  tr.cat-islevler { background-color: #faf5ff; }
+  tr.cat-islevler:hover { background-color: #f3e8ff; }
+  td.category-islevler { font-weight: bold; color: #7e22ce; width: 10%; background-color: #f3e8ff !important; border-right: 1px solid #e9d5ff; }
+
+  /* 3. Gamlar - Dimmed Emerald/Green */
+  tr.cat-gamlar { background-color: #f0fdf4; }
+  tr.cat-gamlar:hover { background-color: #dcfce7; }
+  td.category-gamlar { font-weight: bold; color: #047857; width: 10%; background-color: #dcfce7 !important; border-right: 1px solid #bbf7d0; }
+
+  /* 4. Modlar - Dimmed Amber/Orange */
+  tr.cat-modlar { background-color: #fffbeeb0; }
+  tr.cat-modlar:hover { background-color: #fef3c7; }
+  td.category-modlar { font-weight: bold; color: #b45309; width: 10%; background-color: #fef3c7 !important; border-right: 1px solid #fde68a; }
+
+  /* 5. Duyum & Aralıklar - Dimmed Rose/Red */
+  tr.cat-duyum { background-color: #fff1f2; }
+  tr.cat-duyum:hover { background-color: #ffe4e6; }
+  td.category-duyum { font-weight: bold; color: #be123c; width: 10%; background-color: #ffe4e6 !important; border-right: 1px solid #fecdd3; }
 
   /* Interactive Sample Box */
   .sample-box {
     display: flex; align-items: center; justify-content: space-between;
-    background: #ecfdf5; padding: 8px 12px; border-radius: 6px;
-    border: 1px solid #a7f3d0; cursor: pointer; transition: all 0.2s ease;
+    background: #ffffff; padding: 8px 12px; border-radius: 6px;
+    border: 1px solid #cbd5e1; cursor: pointer; transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
-  .sample-box:hover { background: #d1fae5; border-color: #34d399; transform: translateY(-1px); }
-  .sample-text { font-family: 'Courier New', Courier, monospace; color: #047857; font-weight: 600; line-height: 1.4; font-size: 12px; }
+  .sample-box:hover { background: #f1f5f9; border-color: #94a3b8; transform: translateY(-1px); }
+  .sample-text { font-family: 'Courier New', Courier, monospace; color: #0f172a; font-weight: 600; line-height: 1.4; font-size: 12px; }
   .play-btn-badge {
-    background: #10b981; color: white; border-radius: 20px;
+    background: #0f172a; color: white; border-radius: 20px;
     padding: 3px 8px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px; flex-shrink: 0;
   }
 
@@ -86,9 +111,9 @@
     </tr>
   </thead>
   <tbody>
-    <!-- AKORLAR -->
-    <tr>
-      <td class="category" rowspan="13">Akorlar</td>
+    <!-- AKORLAR (Dimmed Blue Palette) -->
+    <tr class="cat-akorlar">
+      <td class="category-akorlar" rowspan="13">Akorlar</td>
       <td class="term">1. Majör (M)</td>
       <td class="desc">Temel 3 sesli yapı. Kök ses + <b>4 yarım perde</b> + <b>3 yarım perde</b> (1 - 3 - 5). Parlak tını.</td>
       <td>
@@ -98,7 +123,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">2. Minör (m)</td>
       <td class="desc">Temel 3 sesli yapı. Kök ses + <b>3 yarım perde</b> + <b>4 yarım perde</b> (1 - b3 - 5). Koyu ve hüzünlü tını.</td>
       <td>
@@ -108,7 +133,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">3. Diminished (dim)</td>
       <td class="desc">Daraltılmış 3 sesli yapı. Üst üste iki adet <b>3 yarım perde</b> (1 - b3 - b5). Gerilimli geçiş akoru.</td>
       <td>
@@ -118,7 +143,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">4. Augmented (aug)</td>
       <td class="desc">Genişletilmiş 3 sesli yapı. Üst üste iki adet <b>4 yarım perde</b> (1 - 3 - #5). Havada kalmış tını.</td>
       <td>
@@ -128,7 +153,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">5. Sus (sus2 / sus4)</td>
       <td class="desc">Akorun 3'lü sesi çıkarılır; yerine 2. ses (sus2) veya 4. ses (sus4) konur. Nötr ve çözülmemiş tını.</td>
       <td>
@@ -138,7 +163,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">6. Add (add9)</td>
       <td class="desc">3 sesli temel yapının üzerine 7'li eklenmeden doğrudan 9. sesin katılması (1 - 3 - 5 - 9).</td>
       <td>
@@ -148,7 +173,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">7. Majör 7 (Maj7)</td>
       <td class="desc">Majör akor üzerine <b>doğal 7. sesin (11 yarım perde)</b> eklenmesi (1 - 3 - 5 - 7). Yumuşak, rüya gibi tını.</td>
       <td>
@@ -158,7 +183,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">8. Minör 7 (min7 / m7)</td>
       <td class="desc">Minör akor üzerine <b>bemol 7. sesin (10 yarım perde)</b> eklenmesi (1 - b3 - 5 - b7). Cazvari ve buğulu tını.</td>
       <td>
@@ -168,7 +193,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">9. Dominant 7 (7)</td>
       <td class="desc">Majör akor üzerine <b>bemol 7. sesin (10 yarım perde)</b> eklenmesi (1 - 3 - 5 - b7). Yüksek gerilimli, baskın akor.</td>
       <td>
@@ -178,7 +203,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">10. Half-Diminished (m7b5)</td>
       <td class="desc">Eksilmiş akor üzerine bemol 7. sesin eklenmesi (1 - b3 - b5 - b7). Minör tonların 2. derece akorudur.</td>
       <td>
@@ -188,7 +213,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">11. Extended (9/11/13)</td>
       <td class="desc">7'li akorların üzerine 3'lü aralıklar eklenmeye devam edilerek oluşturulan zengin ve karmaşık tınılar.</td>
       <td>
@@ -198,7 +223,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">12. Altered (alt / b9)</td>
       <td class="desc">Dominant akorun 5'li veya 9'lu seslerinin pesleştirilip/tizleştirilmesiyle (b9, #9, b5, #5) gerilimin zirve yapması.</td>
       <td>
@@ -208,7 +233,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-akorlar">
       <td class="term">13. Diyatonik Akorlar</td>
       <td class="desc">Bir ana gamın kendi sesleriyle sırayla kurulan 7 akorluk aile. (Maj - min - min - Maj - Maj - min - dim)</td>
       <td>
@@ -219,9 +244,9 @@
       </td>
     </tr>
 
-    <!-- İŞLEVLER VE TEKNİKLER -->
-    <tr>
-      <td class="category" rowspan="8">İşlevler & Yöntemler</td>
+    <!-- İŞLEVLER VE TEKNİKLER (Dimmed Purple Palette) -->
+    <tr class="cat-islevler">
+      <td class="category-islevler" rowspan="8">İşlevler & Yöntemler</td>
       <td class="term">Tonik (Kök)</td>
       <td class="desc">Parçanın evidir (i / I). Tüm gerilimler burada çözülür.</td>
       <td>
@@ -231,7 +256,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Dominant (Baskın)</td>
       <td class="desc">Dizinin 5. derecesidir (V7). Kulağı şiddetle Tonik akora yönlendirir.</td>
       <td>
@@ -241,7 +266,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Subdominant</td>
       <td class="desc">Dizinin 4. derecesidir (iv / IV). Gerilimi başlatan hazırlık akoru.</td>
       <td>
@@ -251,7 +276,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Secondary Dominant</td>
       <td class="desc">İkincil Baskın Akor. Ton dışındaki bir akora geçmeden önce onun 5. derece dominantını çalma tekniği.</td>
       <td>
@@ -261,7 +286,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Tritone Substitution</td>
       <td class="desc">Triton Değişimi. V7 akoru yerine 3 tam perde uzaktaki dominant akoru kullanma (E7 yerine Bb7).</td>
       <td>
@@ -271,7 +296,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Leading Tone</td>
       <td class="desc">Kök sesin 1 yarım perde altındaki çekim sesi.</td>
       <td>
@@ -281,7 +306,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Subtonic</td>
       <td class="desc">Kök sesin 2 yarım perde altındaki doğal 7. derece.</td>
       <td>
@@ -291,7 +316,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-islevler">
       <td class="term">Mediant / Submediant</td>
       <td class="desc">Tonik ile Dominant ortasındaki 3. ve 6. dereceler. Ton karakterini belirler.</td>
       <td>
@@ -302,9 +327,9 @@
       </td>
     </tr>
 
-    <!-- GAMLAR -->
-    <tr>
-      <td class="category" rowspan="7">Gamlar</td>
+    <!-- GAMLAR (Dimmed Emerald/Green Palette) -->
+    <tr class="cat-gamlar">
+      <td class="category-gamlar" rowspan="7">Gamlar</td>
       <td class="term">Harmonik Minör</td>
       <td class="desc">Doğal minörün 7. sesinin tizleştirilmesiyle (G → G#) oluşur.</td>
       <td>
@@ -314,7 +339,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-gamlar">
       <td class="term">Melodik Minör</td>
       <td class="desc">Minör dizinin hem 6. hem 7. sesinin tizleştirilmesiyle oluşur.</td>
       <td>
@@ -324,7 +349,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-gamlar">
       <td class="term">Blues Gamı</td>
       <td class="desc">Minör pentatonik gama <b>b5 (blue note)</b> eklenerek oluşturulan 6 sesli karakteristik gam.</td>
       <td>
@@ -334,7 +359,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-gamlar">
       <td class="term">Diyatonik Gam</td>
       <td class="desc">Harici diyez/bemol almayan doğal 7 sesli sistem.</td>
       <td>
@@ -344,7 +369,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-gamlar">
       <td class="term">Kromatik Gam</td>
       <td class="desc">12 sesin tamamının yarımşar perdelik adımlarla dizilmesi.</td>
       <td>
@@ -354,7 +379,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-gamlar">
       <td class="term">Minör Pentatonik</td>
       <td class="desc">Doğal minör gamdan <b>2. ve 6. seslerin çıkarılmasıyla</b> (1-b3-4-5-b7) elde edilir.</td>
       <td>
@@ -364,7 +389,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-gamlar">
       <td class="term">Majör Pentatonik</td>
       <td class="desc">Majör gamdan <b>4. ve 7. seslerin çıkarılmasıyla</b> (1-2-3-5-6) elde edilir.</td>
       <td>
@@ -375,9 +400,9 @@
       </td>
     </tr>
 
-    <!-- MODLAR -->
-    <tr>
-      <td class="category" rowspan="7">Modlar</td>
+    <!-- MODLAR (Dimmed Amber/Orange Palette) -->
+    <tr class="cat-modlar">
+      <td class="category-modlar" rowspan="7">Modlar</td>
       <td class="term">Ionian (Majör)</td>
       <td class="desc">Standart majör gamdır (1-2-3-4-5-6-7). Parlak ve mutlu.</td>
       <td>
@@ -387,7 +412,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-modlar">
       <td class="term">Dorian</td>
       <td class="desc">Minör gamın 6. sesinin doğal (6) kalmış halidir. Cazvari minör.</td>
       <td>
@@ -397,7 +422,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-modlar">
       <td class="term">Phrygian</td>
       <td class="desc">Minör gamın 2. sesinin bemol (b2) halidir. Flamenko/Oryantal tını.</td>
       <td>
@@ -407,7 +432,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-modlar">
       <td class="term">Lydian</td>
       <td class="desc">Majör gamın 4. sesinin diyez (#4) halidir. Hayalsi/Uzayvari.</td>
       <td>
@@ -417,7 +442,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-modlar">
       <td class="term">Mixolydian</td>
       <td class="desc">Majör gamın 7. sesinin bemol (b7) halidir. Blues/Rock tınısı.</td>
       <td>
@@ -427,7 +452,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-modlar">
       <td class="term">Aeolian (Minör)</td>
       <td class="desc">Standart doğal minör gamdır (1-2-b3-4-5-b6-b7). Hüzünlü tını.</td>
       <td>
@@ -437,7 +462,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-modlar">
       <td class="term">Locrian</td>
       <td class="desc">Hem 2'lisi hem 5'lisi bemol (b2, b5) olan en gerilimli modtur.</td>
       <td>
@@ -448,9 +473,9 @@
       </td>
     </tr>
 
-    <!-- DUYUM VE ARALIKLAR -->
-    <tr>
-      <td class="category" rowspan="5">Duyum & Aralıklar</td>
+    <!-- DUYUM VE ARALIKLAR (Dimmed Rose/Red Palette) -->
+    <tr class="cat-duyum">
+      <td class="category-duyum" rowspan="5">Duyum & Aralıklar</td>
       <td class="term">Triton (b5 / #4)</td>
       <td class="desc">Tam 3 tam perde uzaklıktaki en gerilimli aralıktır. Çözülme arzusunun temel sebebidir.</td>
       <td>
@@ -460,7 +485,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-duyum">
       <td class="term">Konsonans</td>
       <td class="desc">Çakışmayan, uyumlu, dinlendirici ve kararlı ses birleşimi.</td>
       <td>
@@ -470,7 +495,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-duyum">
       <td class="term">Dissonans</td>
       <td class="desc">Çakışan, tırmalayıcı ve çözülmek isteyen gerilimli ses birleşimi.</td>
       <td>
@@ -480,7 +505,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-duyum">
       <td class="term">Kadans</td>
       <td class="desc">Cümle sonundaki akor hareketiyle oluşan duraklama/bitiş etkisi.</td>
       <td>
@@ -490,7 +515,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr class="cat-duyum">
       <td class="term">Voice Leading</td>
       <td class="desc">Akor geçerken notaların en yakın mesafeden kayarak birleşmesi.</td>
       <td>
@@ -572,8 +597,6 @@
 
   /**
    * ACOUSTIC PIANO SYNTHESIZER ENGINE
-   * Combines percussive hammer strike transients, inharmonic detuned string partials,
-   * dual-phase exponential decay, and dynamic velocity filtering.
    */
   function playSynthesizedPianoNote(freq, velocity = 0.75, duration = 2.5) {
     const ctx = initAudioContext();
@@ -583,7 +606,7 @@
     // 1. Master Output Gain Stage
     const masterGain = ctx.createGain();
     
-    // Dual-Phase Envelope (Fast initial attack, long decay)
+    // Dual-Phase Envelope
     masterGain.gain.setValueAtTime(0.0001, now);
     masterGain.gain.linearRampToValueAtTime(velocity, now + 0.008);
     masterGain.gain.exponentialRampToValueAtTime(velocity * 0.35, now + 0.15);
@@ -617,7 +640,7 @@
     // 3. Inharmonic Piano String Partials
     const stringPartials = [
       { ratio: 1.000, gain: 1.00, type: 'triangle' }, // Fundamental
-      { ratio: 2.003, gain: 0.45, type: 'sine' },     // Slight inharmonicity
+      { ratio: 2.003, gain: 0.45, type: 'sine' },     // Inharmonic 2nd partial
       { ratio: 3.010, gain: 0.20, type: 'sine' },     // 3rd partial
       { ratio: 4.025, gain: 0.08, type: 'sine' }      // 4th partial
     ];
